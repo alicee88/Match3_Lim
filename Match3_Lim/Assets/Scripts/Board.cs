@@ -7,6 +7,8 @@ public class Board : MonoBehaviour
     public int width;
     public int height;
 
+    public int borderSize;
+
     public GameObject tilePrefab;
 
     Tile[,] m_allTiles;
@@ -16,6 +18,7 @@ public class Board : MonoBehaviour
     {
         m_allTiles = new Tile[width, height];
         SetupTiles();
+        SetupCamera();
     }
 
     void SetupTiles()
@@ -33,6 +36,18 @@ public class Board : MonoBehaviour
                 tile.transform.parent = transform;
             }
         }
+    }
+
+    void SetupCamera()
+    {
+        Camera.main.transform.position = new Vector3((float)((width - 1) / 2f), (float)((height - 1) / 2f), -10f);
+
+        float ortho_horizontal = ((float)width / 2 + (float)borderSize) / Camera.main.aspect;
+        Debug.Log("MAIN ASPECT " + Camera.main.aspect);
+        float ortho_vertical = ((float)height / 2) + (float)borderSize;
+
+        Camera.main.orthographicSize = ortho_horizontal > ortho_vertical ? ortho_horizontal : ortho_vertical;
+
     }
 
 }
