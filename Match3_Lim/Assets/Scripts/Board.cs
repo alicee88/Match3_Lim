@@ -15,6 +15,9 @@ public class Board : MonoBehaviour
     Tile[,] m_allTiles;
     GamePiece[,] m_allGamePieces;
 
+    Tile m_clickedTile;
+    Tile m_targetTile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +91,37 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void ClickTile(Tile tile)
+    {
+        if (m_clickedTile == null)
+        {
+            m_clickedTile = tile;
+            Debug.Log("Clicked tile " + tile);
+        }
+    }
 
+    public void DragToTile(Tile tile)
+    {
+        if (m_clickedTile != null)
+        {
+            m_targetTile = tile;
+            Debug.Log("Dragged to tile " + tile);
+        }
+    }
+
+    public void ReleaseTile()
+    {
+        if (m_clickedTile != null && m_targetTile != null)
+        {
+            SwitchTiles(m_clickedTile, m_targetTile);
+            Debug.Log("Switched tiles");
+        }
+    }
+
+    void SwitchTiles(Tile clickedTile, Tile targetTile)
+    {
+        m_clickedTile = null;
+        m_targetTile = null;
+    }
 
 }
