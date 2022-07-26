@@ -9,11 +9,18 @@ public class GamePiece : MonoBehaviour
 
     bool m_isMoving = false;
 
+    Board m_board;
+
 
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    public void Init(Board board)
+    {
+        m_board = board;
     }
 
     // Update is called once per frame
@@ -35,7 +42,7 @@ public class GamePiece : MonoBehaviour
         yIndex = y;
     }
 
-    void Move(int destX, int destY, float timeToMove)
+    public void Move(int destX, int destY, float timeToMove)
     {
         if (!m_isMoving)
         {
@@ -57,8 +64,11 @@ public class GamePiece : MonoBehaviour
             if (Vector3.Distance(transform.position, destination) < 0.01f)
             {
                 reachedDestination = true;
-                transform.position = destination;
-                SetCoord((int)destination.x, (int)destination.y);
+                if (m_board != null)
+                {
+                    m_board.PlaceGamePiece(this, (int)destination.x, (int)destination.y);
+                }
+
                 break;
             }
 
