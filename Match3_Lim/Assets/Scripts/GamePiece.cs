@@ -11,6 +11,19 @@ public class GamePiece : MonoBehaviour
 
     Board m_board;
 
+    public MatchValue matchValue;
+    public enum MatchValue
+    {
+        Blue,
+        Cyan,
+        Green,
+        Indigo,
+        Magenta,
+        Red,
+        Teal,
+        Yellow
+    }
+
 
     // Start is called before the first frame update
     void Start()
